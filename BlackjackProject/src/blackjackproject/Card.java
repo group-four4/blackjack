@@ -11,8 +11,8 @@ package blackjackproject;
  */
 public class Card {
     
-    private Suit suit;
-    private Value value;
+    private final Suit suit;
+    private final Value value;
     
     public Card(Suit suit, Value value){
         this.value= value;
@@ -27,6 +27,7 @@ public class Card {
         return value;
     }
     
+    @Override
     public String toString(){
         return this.suit.toString() + "-" + this.value.toString();
     }

@@ -11,7 +11,7 @@ package blackjackproject;
  */
 public class Bankaccount {
     
-    private double moneyAmount=1000.0;
+    private double moneyAmount;
     
     public Bankaccount(double alkupääoma){
         moneyAmount= alkupääoma;
@@ -21,10 +21,19 @@ public class Bankaccount {
         return moneyAmount;
     }
     
+    public void increaseMoneyAmount(double lisäysrahat){
+        moneyAmount= moneyAmount + lisäysrahat;
+    }
     
     public boolean reduceMoneyAmount(double vähennysrahat){
         
-        if (vähennysrahat <= )
+        if (vähennysrahat <= moneyAmount){
+            moneyAmount -= vähennysrahat;
+            return true;
+        }
+        else {
+            return false;
+        }
         
     }
 }

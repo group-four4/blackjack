@@ -5,6 +5,8 @@
  */
 package blackjackproject;
 import java.util.ArrayList;
+import static java.util.Collections.swap;
+import java.util.Random;
 
 /**
  *
@@ -22,30 +24,41 @@ public class Deck {
         for (int i=0; i<howManyDecks; i++){
         for (Suit cardSuit : Suit.values())
             for (Value cardValue : Value.values())
-                this.carddeck.add(new Card(cardSuit, cardValue));
+                carddeck.add(new Card(cardSuit, cardValue));
         }
     }
     
     public void shufflePlayingDeck(){
         int randomInt;
-        final int    alaR= 0, originalSizeDeck= this.carddeck.size();
+        final int    alaR= 0, originalSizeDeck= carddeck.size();
         ArrayList<Card> temporaryDeck = new ArrayList<>();
 
         for (int i=0; i<originalSizeDeck; i++){       // arraylist carddeckin indexit menevät matemaattisella intervallilla [0, (originalsize-1)]
 
-            randomInt = ( (int) (Math.random() * (this.carddeck.size()-1 - alaR + 1) + alaR) );     // täytyy käyttää loopissa sisällä uutta metodikutsua .size() koska pelipakan koko voi muuttua
+            randomInt = ( (int) (Math.random() * (carddeck.size()-1 - alaR + 1) + alaR) );     // täytyy käyttää loopissa sisällä uutta metodikutsua .size() koska pelipakan koko voi muuttua
             temporaryDeck.add(this.getCard(randomInt));
-            this.carddeck.remove(randomInt);
+            carddeck.remove(randomInt);
         }
         
-        this.carddeck= temporaryDeck;
+        carddeck= temporaryDeck;
     }
+    
+    public void shuffleArrayList(){     // shuffle arraylist algorithm, requires some java import clauses
+        int originalSizeList= carddeck.size();
+        Random random = new Random();
+        random.nextInt();
+        for (int j=0; j<originalSizeList; j++){
+            int change = j + random.nextInt(originalSizeList-j);
+            swap(carddeck, j, change);
+        }
+    }
+    
     
     @Override
     public String toString(){
         String cardOutput = "";
         int i= 0;
-        for (Card aCard : this.carddeck) {
+        for (Card aCard : carddeck) {
             cardOutput = cardOutput + "\n" + (i+1) + " " + aCard.toString();
             i=i+1;
         }
@@ -53,15 +66,20 @@ public class Deck {
     }
     
     public void removeCard(int index){
-        this.carddeck.remove(index);
+        carddeck.remove(index);
     }
     
     public void addCard(Card addedCard){
-        this.carddeck.add(addedCard);
+        carddeck.add(addedCard);
     }
     
     public Card getCard(int index){
-        return this.carddeck.get(index);
+        return carddeck.get(index);
+    }
+    
+    
+    public int checkCardsAmountInDeck(){
+        return carddeck.size();
     }
     
     /*      // joku wanha metodi
