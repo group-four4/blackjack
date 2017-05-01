@@ -29,7 +29,11 @@ public class Card {
     
     @Override
     public String toString(){
-        return this.suit.toString() + "-" + this.value.toString();
+        return value.toString() + " of " +suit.toString() ;
+    }
+    
+    public String getValueAsString(){
+        return value.toString();
     }
     
 }

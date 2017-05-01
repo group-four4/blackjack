@@ -67,6 +67,17 @@ public class View {
         return numberDecks;
     }
     
+    public void printInteger(int luku){
+        System.out.println(luku);
+    }
+    
+    public void printDouble(double luku){
+        System.out.println(luku);
+    }
+    
+    public void printString(String stringi){
+        System.out.println(stringi);
+    }
     
     
 }
