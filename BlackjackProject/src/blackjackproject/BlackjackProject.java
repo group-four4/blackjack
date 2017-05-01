@@ -34,7 +34,7 @@ public class BlackjackProject {     // <----------CONTROLLERIN METODIT LÖYTYY T
     public int playingDeckGenerateShuffle(Deck thePlayingDeck){
         int numberOfDecks= theView.askHowManyDecksToUse();
         thePlayingDeck.createPlayingDeck(numberOfDecks);
-       // thePlayingDeck.shuffleArrayList();
+        thePlayingDeck.shuffleArrayList();
         return numberOfDecks;
     }
    
@@ -60,9 +60,33 @@ public class BlackjackProject {     // <----------CONTROLLERIN METODIT LÖYTYY T
         return dealerhand.handValueOf();
     }
     
-    public void showPlayerHand(){
-                theView.printString("the player has: ");
+    public boolean insuranceBetOffering(){
+        if (dealerhand.isOpenCardAce()){
+            if(theView.askInsuranceBet()){
+                return true;
+            }
+            else
+                return false;
+        }
+        else
+            return false; 
+    }
+    
+    public boolean canPlayerSplit(){
+        if ( playerhand.doesPlayerHaveSameStartingCards() ){
+            return true;
+        }
+        else
+            return false;
+    }
+    
+    public int playerDecisionsRegular(){
+        return theView.askPlayerDecisionsRegular();
 
+    }
+    
+    public void showPlayerHand(){
+        theView.printString("the player has: ");
         theView.printString(playerhand.toString());
     }
     public void showDealerHand(){
@@ -76,14 +100,17 @@ public class BlackjackProject {     // <----------CONTROLLERIN METODIT LÖYTYY T
          System.out.println("dealerhand is valued at "+dealerhand.handValueOf());
     }
     
-    public void checkDealerAcesValue(){
-        }
-
-    public void playerHitCard(){
+    public void playerHitCard(){        // metodia on editoidu MUTTA EI VIELÄ testattu että laskeeko se uudelleen ässien arvot oikein!!
         playerhand.hitPlayerCard();
+//        playerhand.handValueOf();
         theView.printString(playerhand.toString());
+//        System.out.println("playerhand is valued at "+playerhand.handValueOf());
     }
     
+    public void clearBothHands(){
+        dealerhand.clearHand();
+        playerhand.clearHand();
+    }
     
     public int checkRemainingCardsInDeck(Deck playingdeck){
         int remainingcards = playingdeck.checkCardsAmountInDeck();

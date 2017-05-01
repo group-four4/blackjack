@@ -42,6 +42,36 @@ public class View {
         System.out.println("GET OUTTA HERE you're out money you shmuck!!!");
     }
     
+    public boolean askInsuranceBet(){
+        System.out.println("Do you want to place insurancebet? ");
+        String answer= input.next();
+        if ( answer.compareTo("yes")==0 || answer.compareTo("y")==0 ){
+            
+            return true;
+        }
+        return false;
+    }
+    
+   public int askPlayerDecisionsRegular(){
+       System.out.println("your choices are as follows: ");
+       System.out.println("1) stand  ");
+       System.out.println("2) hit ");
+       System.out.println("3) doubledown ");
+        int answer=input.nextInt();
+        return answer;
+    
+   }
+   
+   public boolean askPlayerKeepHitting(){
+       System.out.println("Do you want to keep hitting? ");
+       String answer= input.next();
+       if ( answer.compareTo("y")==0 || answer.compareTo("yes")==0 )
+           return true;
+       else
+           return false;
+   }
+   
+   
     public double askBetSize(){
         int j=0;
 
