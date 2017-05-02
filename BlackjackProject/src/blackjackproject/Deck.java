@@ -24,9 +24,9 @@ public class Deck {
        Suit hearts= Suit.HEARTS;
        Card one= new Card(hearts, Value.ACE);       // playercard1
        Card two= new Card(hearts, Value.KING);      // playercard2
-       Card three= new Card(hearts, Value.FIVE);
-       Card four= new Card(hearts, Value.FIVE);
-       Card five= new Card(hearts, Value.ACE);
+       Card three= new Card(hearts, Value.ACE);
+       Card four= new Card(hearts, Value.SIX);
+       Card five= new Card(hearts, Value.EIGHT);
        Card six= new Card(hearts, Value.FIVE);
        Card seven= new Card(hearts, Value.ACE);
        Card eight= new Card(hearts, Value.SEVEN);
@@ -59,6 +59,7 @@ public class Deck {
 
        
    }
+   
     public void createPlayingDeck(int howManyDecks){        // generoi 52 kortin playingdeck:in
         for (int i=0; i<howManyDecks; i++){
         for (Suit cardSuit : Suit.values())

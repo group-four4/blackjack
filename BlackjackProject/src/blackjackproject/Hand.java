@@ -32,7 +32,9 @@ public class Hand {
 
     }
 
-    
+    public void clearHand(){
+        playerhand.clear();
+    }
     public void dealStartingCards(){
         for (int j=0; j<=1; j++){
             playerhand.add(carddeck.getCard(0));
@@ -44,6 +46,22 @@ public class Hand {
         String revealedCard;                // dealer paljastaa vain yhden omista korteistaan pelaajalle tässä vaiheessa. HUOM kaikki alkukortit on kuitenkin jaettu jo, mutta 
         revealedCard= " - " + playerhand.get(0).toString();     //  sitä toista dealerin korttia ei vain printata näkyviin vielä
         return revealedCard;
+    }
+    
+    public boolean doesPlayerHaveSameStartingCards(){
+        if (  playerhand.get(0).getValue() == playerhand.get(1).getValue()   ){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    public boolean isOpenCardAce(){
+        Value maa= playerhand.get(0).getValue();
+        if (maa==Value.ACE)
+            return true;
+        else
+            return false;
     }
 
     @Override
