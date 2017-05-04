@@ -21,6 +21,9 @@ public class Bankaccount {
         return moneyAmount;
     }
     
+    public void setMoneyAmount(double moneyAmount){
+        this.moneyAmount=moneyAmount;
+    }
     public void increaseMoneyAmount(double lisäysrahat){
         moneyAmount= moneyAmount + lisäysrahat;
     }
