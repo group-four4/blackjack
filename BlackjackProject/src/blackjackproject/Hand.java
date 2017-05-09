@@ -14,7 +14,8 @@ public class Hand {
     
     private Deck carddeck;
     private ArrayList<Card> playerhand;         // instanttimuuttuja playerhand on nimetty hieman sekavasti playerhand:iksi
-                                                // playerhand voi olla mikä tahansa hand joko dealerin käsi tai playerin käsi
+    
+    
     public Hand() {                             // nämä Hand luokan metodit tehtiin ihan alkuvaiheessa kun suunnittelimme aluksi tekevämme pääohjelman ilman controller-oliota.
         this.playerhand = new ArrayList<>();    // Hand luokan constructori, ON TÄRKEÄÄ HUOMATA Hand-oliot ovat ArrayListejä jotka sisältävät Card-olioita
     }
@@ -24,16 +25,53 @@ public class Hand {
         this.playerhand = new ArrayList<>();
     }
 
-
+   public Card getCardFromMainHand(){      // työn alla
+       Card firstCard = this.playerhand.get(0);
+       this.playerhand.remove(firstCard);
+       return firstCard;
+   }
+   
+   public void putCardIntoSidehand(Card firstCard){     /// työn alla 
+       this.playerhand.add(firstCard);
+   }
+   
+   public void makeMeASidehand( Hand mainhand ){        //// työn alla  esimerkki.   sidehand.makeMeASidehand(mainhand)
+       Card firstCard = mainhand.getCardFromMainHand();
+       this.playerhand.add(firstCard);
+   }
+   
+   
     
-    public void hitPlayerCard() {
+    public void hitPlayerCard() {       // nostaa yhden kortin playingdeckistä
         playerhand.add(carddeck.getCard(0));
         carddeck.removeCard(0);
 
     }
-
     
-    public void dealStartingCards(){
+    public int dealerHitLoop(Hand dealerhand){      // käytä tätä vain kun syötät parametriksi dealerin handin MUUTEN METODI EI OLE BLACKJACK SÄÄNTÖJEN mukaan
+      while(dealerhand.handValueOf() <17){
+          dealerhand.hitPlayerCard();
+          int dealerValue= dealerhand.handValueOf();
+          if (dealerValue >= 17) {
+              System.out.println(dealerhand.toString());
+              System.out.println("dealerhand is valued at " + dealerhand.handValueOf());
+              return dealerValue;
+          }
+          System.out.println(dealerhand.toString());
+          System.out.println("dealerhand is valued at " + dealerhand.handValueOf());
+      }
+      return dealerhand.handValueOf();
+    }
+    
+    public int getAmountOfCards(){
+        int cardsAmount= playerhand.size();
+        return cardsAmount;
+    }   
+
+    public void clearHand(){        //tyhjentää Handin blackjack rundin jälkeen
+        playerhand.clear();
+    }
+    public void dealStartingCards(){            // jakaa alkukortit
         for (int j=0; j<=1; j++){
             playerhand.add(carddeck.getCard(0));
             carddeck.removeCard(0);
@@ -45,6 +83,22 @@ public class Hand {
         revealedCard= " - " + playerhand.get(0).toString();     //  sitä toista dealerin korttia ei vain printata näkyviin vielä
         return revealedCard;
     }
+    
+    public boolean doesPlayerHaveSameStartingCards(){           // metodi liitty splittaukseeen muistaakseni
+        if (  playerhand.get(0).getValue() == playerhand.get(1).getValue()   ){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    public boolean isOpenCardAce(){         // metodi liitty insuranceBetin tarjoamiseen
+        Value maa= playerhand.get(0).getValue();
+        if (maa==Value.ACE)
+            return true;
+        else
+            return false;
+    }
 
     @Override
     public String toString() {
@@ -54,6 +108,8 @@ public class Hand {
         }
         return handOutput;
     }
+    
+    
     
     
 //    public int TESTIHandValueOf(){       // tämä on joku raakaversio uudesta testimetodista tätä ei käytetä pääohjelmatestaukseen
@@ -88,9 +144,30 @@ public class Hand {
 //            return handtotalValue;
 //    }
 //    
+//    public int dealerHandValueOf(){     // joku paska koodi
+//        int dealerHandValue=0;
+//        for (Card aCard : playerhand){
+//            switch (aCard.getValue()){
+//                case TWO: dealerHandValue += 2; break;
+//                case THREE: dealerHandValue += 3; break;
+//                case FOUR: dealerHandValue += 4; break;
+//                case FIVE   : dealerHandValue += 5; break;
+//                case SIX: dealerHandValue += 6; break;
+//                case SEVEN: dealerHandValue += 7; break;
+//                case EIGHT: dealerHandValue += 8; break;
+//                case NINE: dealerHandValue += 9; break;
+//                case TEN: dealerHandValue += 10; break;
+//                case JACK: dealerHandValue += 10; break;
+//                case QUEEN: dealerHandValue += 10; break;
+//                case KING: dealerHandValue += 10; break;
+//                case ACE: dealerHandValue +=11; break; 
+//            }
+//            
+//        }
+//        return dealerHandValue;
+//    }
     
-    
-    public int handValueOf(){       // tämä on uusi metodi jota testataan laskemaan ässien arvot oikein. vanha metodi siinä on bugi ässien arvon laskemisessa
+    public int handValueOf(){       // tämä on uusi metodi jota testataan laskemaan ässien arvot oikein. 
          int handtotalValue=0, acesAmount=0;
         for (Card theCard : playerhand){
             switch (theCard.getValue()){
@@ -128,7 +205,7 @@ public class Hand {
     */
       
     /*
-        public int handValueOf(){       // tämä oli vanha metodi siinä on bugi ässien arvon laskemisessa
+        public int handValueOf(){       // tämä oli vanha metodi  ässien arvon laskemisessa
         int handtotalValue=0, acesAmount=0;
         
         for (Card theCard : playerhand){
