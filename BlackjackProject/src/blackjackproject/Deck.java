@@ -22,20 +22,20 @@ public class Deck {
     
    public void createTestingDeck(){     // tämä deckki on VAIN TESTAUSTA VARTEN
        Suit hearts= Suit.HEARTS;
-       Card one= new Card(hearts, Value.ACE);       // playercard1
-       Card two= new Card(hearts, Value.KING);      // playercard2
-       Card three= new Card(hearts, Value.FIVE);
-       Card four= new Card(hearts, Value.FIVE);
-       Card five= new Card(hearts, Value.ACE);
-       Card six= new Card(hearts, Value.FIVE);
-       Card seven= new Card(hearts, Value.ACE);
-       Card eight= new Card(hearts, Value.SEVEN);
+       Card one= new Card(hearts, Value.JACK);       // playercard1
+       Card two= new Card(hearts, Value.JACK);      // playercard2
+       Card three= new Card(hearts, Value.KING  );     // 1st dealercard = revealed dealercard
+       Card four= new Card(hearts, Value.EIGHT);      // 2nd dealercard = UNKNOWN card
+       Card five= new Card(hearts, Value.SIX);      // fifth card = splitgame card taken from the testing deck to the sidehand
+       Card six= new Card(hearts, Value.FIVE);      // sixth card = maingame card taken from the testing deck to the playerhand
+       Card seven= new Card(hearts, Value.SIX);
+       Card eight= new Card(hearts, Value.FIVE);
        Card nine= new Card(hearts, Value.SEVEN);
-       Card ten= new Card(hearts, Value.SEVEN);
-       Card eleven= new Card(hearts, Value.SEVEN);
-       Card twelve= new Card(hearts, Value.SEVEN);
+       Card ten= new Card(hearts, Value.JACK);
+       Card eleven= new Card(hearts, Value.JACK);
+       Card twelve= new Card(hearts, Value.JACK);
 
-/*          // tässä loopissa testattiin että jos dealer sai pelkästään ässiä korteiksi LOPPUTULOS=MEIDÄÄN ALGORITHMIT TOIMIVAT OIKEIN... LOPPU...
+/*          // tässä loopissa testattiin että jos dealer sai pelkästään ässiä korteiksi LOPPUTULOS= TOIMIVAT OIKEIN... LOPPU...
        carddeck.add(one);
       carddeck.add(two);
        for (int i=1; i<=21; i++){
@@ -59,6 +59,7 @@ public class Deck {
 
        
    }
+   
     public void createPlayingDeck(int howManyDecks){        // generoi 52 kortin playingdeck:in
         for (int i=0; i<howManyDecks; i++){
         for (Suit cardSuit : Suit.values())
